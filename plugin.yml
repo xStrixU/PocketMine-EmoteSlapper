@@ -1,5 +1,11 @@
 name: EmoteSlapper
 main: emoteslapper\Main
-version: 1.0
+version: 1.0.0
 author: xStrixU
-api: 3.0.0
+api: 3.14.0
+mcpe-protocol: 407
+
+permissions:
+ emoteslapper.command:
+   default: op
+   description: Allow to use emoteslapper command
