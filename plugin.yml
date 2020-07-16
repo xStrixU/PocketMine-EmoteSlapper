@@ -1,0 +1,5 @@
+name: EmoteSlapper
+main: emoteslapper\Main
+version: 1.0
+author: xStrixU
+api: 3.0.0
