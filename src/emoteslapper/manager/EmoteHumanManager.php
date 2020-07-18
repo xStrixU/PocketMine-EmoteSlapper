@@ -13,14 +13,15 @@ class EmoteHumanManager {
 	public static $customName = [];
 	public static $emote = [];
 	public static $emoteCooldown = [];
+	public static $setInventory = [];
 	public static $remove = [];
 	
-	public static function spawn(Player $player, string $customName, string $emote, int $emoteCooldown) : void {
+	public static function spawn(Player $player, string $customName, string $emote, float $emoteCooldown) : void {
 		$nbt = Entity::createBaseNBT($player->asVector3(), null);
 		
 		$nbt->setString("CustomName", $customName);
 		$nbt->setString("Emote", $emote);
-		$nbt->setInt("EmoteCooldown", $emoteCooldown);
+		$nbt->setFloat("EmoteCooldown", $emoteCooldown);
 		
 		$player->saveNBT();
 		$skin = $player->namedtag->getCompoundTag("Skin");
@@ -29,6 +30,7 @@ class EmoteHumanManager {
 		$entity = Entity::createEntity("EmoteHuman", $player->getLevel(), $nbt);
 		
 		$entity->getInventory()->setItemInHand($player->getInventory()->getItemInHand());
+		$entity->getArmorInventory()->setContents($player->getArmorInventory()->getContents());
 		
 		$entity->spawnToAll();
 	}
