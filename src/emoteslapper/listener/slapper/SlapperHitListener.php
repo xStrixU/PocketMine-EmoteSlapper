@@ -46,6 +46,16 @@ class SlapperHitListener implements Listener {
 				$damager->sendMessage(Main::PREFIX." §7Setted emote cooldown successfully!");
 			}
 			
+			if(isset(EmoteHumanManager::$setInventory[$nick])) {
+				unset(EmoteHumanManager::$setInventory[$nick]);
+				
+				$slapper->getInventory()->setItemInHand($damager->getInventory()->getItemInHand());
+		$slapper->getArmorInventory()->setContents($damager->getArmorInventory()->getContents());
+		$slapper->getInventory()->sendHeldItem($damager->getServer()->getOnlinePlayers());
+		
+				$damager->sendMessage(Main::PREFIX." §7Setted slapper inventory successfully!");
+			}
+			
 			if(isset(EmoteHumanManager::$remove[$nick])) {
 				unset(EmoteHumanManager::$remove[$nick]);
 				
