@@ -27,6 +27,7 @@ class EmoteSlapperCommand extends Command {
 			$sender->sendMessage("§8 - §7/emoteslapper §6customname §8(§6customName§8)");
 			$sender->sendMessage("§8 - §7/emoteslapper §6emote §8(§6emote§8)");
 			$sender->sendMessage("§8 - §7/emoteslapper §6emotecooldown §8(§6emoteCooldown§8)");
+			$sender->sendMessage("§8 - §7/emoteslapper §6setinventory");
 			$sender->sendMessage("§8 - §7/emoteslapper §6remove");
 			return;
 		}
@@ -65,7 +66,7 @@ class EmoteSlapperCommand extends Command {
 		
 	  	$customName = rtrim($customName);
 		
-	  	EmoteHumanManager::spawn($sender, $customName, $args[1], (int)$args[2]);
+	  	EmoteHumanManager::spawn($sender, $customName, $args[1], (float)$args[2]);
 	  	$sender->sendMessage(Main::PREFIX." §7Spawned emote slapper successfully!");
 		 break;
 		 
@@ -110,9 +111,15 @@ class EmoteSlapperCommand extends Command {
 		  	return;
 	  	}
 		  
-		  EmoteHumanManager::$emoteCooldown[$sender->getName()] = (int)$args[1];
+		  EmoteHumanManager::$emoteCooldown[$sender->getName()] = (float)$args[1];
 		  
 		  $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to update the emote cooldown!");
+		 break;
+		 
+		 case "setinventory":
+		  EmoteHumanManager::$setInventory[$sender->getName()] = true;
+		  
+		  $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to set inventory!");
 		 break;
 		 
 		 case "remove":
