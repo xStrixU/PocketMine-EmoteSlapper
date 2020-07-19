@@ -15,6 +15,6 @@ This is plugin that spawns Human entity doing emotes. Support only PocketMine-MP
  - [x] add support of float emote cooldown
  - [x] add yaw and pitch
  - [ ] add auto-changing emotes every specified seconds
- - [ ] add commands support 
+ - [x] add slapper commands support 
  
 Do you have any ideas to add? Let me know about it on my Discord: xStrixU#4844
