@@ -10,7 +10,6 @@ This is plugin that spawns Human entity doing emotes. Support only PocketMine-MP
  - [ ] add auto-update system
  - [x] add ArmorInventory support
  - [ ] add some commands to control Slapper position
- - [ ] add support of messages on hit Slapper
  - [ ] add auto-changing nametag every specified seconds
  - [x] add support of float emote cooldown
  - [x] add yaw and pitch
