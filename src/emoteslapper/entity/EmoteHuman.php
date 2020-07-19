@@ -8,6 +8,9 @@ use pocketmine\entity\Human;
 use pocketmine\network\mcpe\protocol\EmotePacket;
 use emoteslapper\manager\EmoteManager;
 use pocketmine\Server;
+use pocketmine\Player;
+use pocketmine\command\ConsoleCommandSender;
+
 class EmoteHuman extends Human implements Slapper {
 	
 	private $lastEmote = 0;
@@ -41,6 +44,50 @@ class EmoteHuman extends Human implements Slapper {
 	
 	public function setEmoteCooldown(float $emoteCooldown) : void {
 		$this->namedtag->setFloat("EmoteCooldown", $emoteCooldown);
+	}
+	
+	public function addCommand(string $command) : bool {
+		$commands = $this->namedtag->getCompoundTag("Commands") ?? new CompoundTag("Commands", []);
+		
+		if($commands->hasTag($command))
+		 return false;
+		
+		$commands->setString($command, $command);
+		$this->namedtag->setTag($commands);
+		
+		return true;
+	}
+	
+	public function removeCommand(string $command) : bool {
+		$commands = $this->namedtag->getCompoundTag("Commands") ?? new CompoundTag("Commands", []);
+		
+		if(!$commands->hasTag($command))
+		 return false;
+		
+		$commands->removeTag($command);
+		$this->namedtag->setTag($commands);
+		
+		return true;
+	}
+	
+	public function removeCommands() : void {
+		foreach($this->getCommands() as $command)
+		 $this->removeCommand($command);
+	}
+	
+	public function getCommands() : array {
+		$cmds = [];
+		$commands = $this->namedtag->getCompoundTag("Commands") ?? new CompoundTag("Commands", []);
+		
+		foreach($commands as $stringTag)
+		 $cmds[] = $stringTag->getValue();
+		
+		return $cmds;
+	}
+	
+	public function executeCommands(Player $player) : void {
+		foreach($this->getCommands() as $command)
+		 $player->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("{player}", $player->getName(), $command));
 	}
 	
 	public function entityBaseTick(int $diff = 1) : bool {
