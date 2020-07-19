@@ -28,6 +28,9 @@ class EmoteSlapperCommand extends Command {
 			$sender->sendMessage("§8 - §7/emoteslapper §6emote §8(§6emote§8)");
 			$sender->sendMessage("§8 - §7/emoteslapper §6emotecooldown §8(§6emoteCooldown§8)");
 			$sender->sendMessage("§8 - §7/emoteslapper §6setinventory");
+			$sender->sendMessage("§8 - §7/emoteslapper §6addcommand §8(§6command§8)");
+			$sender->sendMessage("§8 - §7/emoteslapper §6removecommand §8(§6command§7/§6*§8)");
+			$sender->sendMessage("§8 - §7/emoteslapper §6commands");
 			$sender->sendMessage("§8 - §7/emoteslapper §6remove");
 			return;
 		}
@@ -72,7 +75,7 @@ class EmoteSlapperCommand extends Command {
 		 
 		 case "customname":
 		  if(!isset($args[1])) {
-		  	$sender->sendMessage(Main::PREFIX." §7/emoteslapper §6customname §8(§6customName§8)");
+		  	$sender->sendMessage(Main::PREFIX." §7Usage: /emoteslapper §6customname §8(§6customName§8)");
 		  	return;
 		  }
 		  
@@ -120,6 +123,46 @@ class EmoteSlapperCommand extends Command {
 		  EmoteHumanManager::$setInventory[$sender->getName()] = true;
 		  
 		  $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to set inventory!");
+		 break;
+		 
+		 case "addcommand":
+		 case "addcmd":
+		 if(!isset($args[1])) {
+		 	$sender->sendMessage(Main::PREFIX." §7Usage: /emoteslapper §6addcommand §8(§6command§8)");
+		  return;
+		 }
+		 
+		 array_shift($args);
+		 $command = ltrim(implode(" ", $args));
+		  
+		 EmoteHumanManager::$addCommand[$sender->getName()] = $command;
+		  
+		 $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to add command!");
+		 break;
+		 
+		 case "removecommand":
+		 case "removecmd":
+		 if(!isset($args[1])) {
+		 	$sender->sendMessage(Main::PREFIX." §7Usage: /emoteslapper §6removecommand §8(§6command§8)");
+		  return;
+		 }
+		 
+		 array_shift($args);
+		 $command = ltrim(implode(" ", $args));
+		  
+		 EmoteHumanManager::$removeCommand[$sender->getName()] = $command;
+		  
+		  if($command === "*")
+		   $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to remove all commands!");
+		  else
+		   $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to remove command!");
+		 break;
+		 
+		 case "commands":
+		 case "cmds":
+		  EmoteHumanManager::$commands[$sender->getName()] = true;
+		  
+		  $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to see the command list!");
 		 break;
 		 
 		 case "remove":
