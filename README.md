@@ -14,5 +14,6 @@ This is plugin that spawns Human entity doing emotes. Support only PocketMine-MP
  - [ ] add auto-changing nametag every specified seconds
  - [x] add support of float emote cooldown
  - [x] add yaw and pitch
+ - [ ] add auto-changing emotes every specified seconds
  
 Do you have any ideas to add? Let me know about it on my Discord: xStrixU#4844
