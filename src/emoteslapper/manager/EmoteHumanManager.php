@@ -17,7 +17,7 @@ class EmoteHumanManager {
 	public static $remove = [];
 	
 	public static function spawn(Player $player, string $customName, string $emote, float $emoteCooldown) : void {
-		$nbt = Entity::createBaseNBT($player->asVector3(), null);
+		$nbt = Entity::createBaseNBT($player->asVector3(), null, $player->getYaw(), $player->getPitch());
 		
 		$nbt->setString("CustomName", $customName);
 		$nbt->setString("Emote", $emote);
