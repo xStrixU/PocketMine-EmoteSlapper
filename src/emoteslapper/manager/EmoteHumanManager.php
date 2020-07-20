@@ -7,7 +7,6 @@ namespace emoteslapper\manager;
 use pocketmine\Player;
 use pocketmine\entity\Entity;
 use emoteslapper\entity\EmoteHuman;
-use pocketmine\nbt\tag\CompoundTag;
 
 class EmoteHumanManager {
 	
@@ -19,6 +18,9 @@ class EmoteHumanManager {
 	public static $addCommand = [];
 	public static $removeCommand = [];
 	public static $commands = [];
+	public static $addCustomName = [];
+	public static $removeCustomName = [];
+	public static $customNames = [];
 	
 	public static function spawn(Player $player, string $customName, string $emote, float $emoteCooldown) : void {
 		$nbt = Entity::createBaseNBT($player->asVector3(), null, $player->getYaw(), $player->getPitch());
@@ -26,7 +28,6 @@ class EmoteHumanManager {
 		$nbt->setString("CustomName", $customName);
 		$nbt->setString("Emote", $emote);
 		$nbt->setFloat("EmoteCooldown", $emoteCooldown);
-		$nbt->setTag(new CompoundTag("Commands", []));
 		
 		$player->saveNBT();
 		$skin = $player->namedtag->getCompoundTag("Skin");
@@ -36,6 +37,7 @@ class EmoteHumanManager {
 		
 		$entity->getInventory()->setItemInHand($player->getInventory()->getItemInHand());
 		$entity->getArmorInventory()->setContents($player->getArmorInventory()->getContents());
+		$entity->addCustomName($customName);
 		
 		$entity->spawnToAll();
 	}

@@ -27,8 +27,47 @@ class SlapperHitListener implements Listener {
 				$customName = EmoteHumanManager::$customName[$nick];
 				unset(EmoteHumanManager::$customName[$nick]);
 				
+				$slapper->removeCustomNames();
+				$slapper->addCustomName($customName);
 				$slapper->setCustomName($customName);
 				$damager->sendMessage(Main::PREFIX." §7Set customName successfully!");
+				$action = true;
+			}
+			
+			if(isset(EmoteHumanManager::$addCustomName[$nick])) {
+				$customName = EmoteHumanManager::$addCustomName[$nick];
+				unset(EmoteHumanManager::$addCustomName[$nick]);
+				
+				if(!$slapper->addCustomName($customName))
+				 $damager->sendMessage(Main::PREFIX." §7This customName already exists!");
+				else
+			 	$damager->sendMessage(Main::PREFIX." §7Added customName successfully!");
+			 
+			 $action = true;
+			}
+			
+			if(isset(EmoteHumanManager::$removeCustomName[$nick])) {
+				$customName = EmoteHumanManager::$removeCustomName[$nick];
+				unset(EmoteHumanManager::$removeCustomName[$nick]);
+				
+				if(count($slapper->getCustomNames()) === 1) {
+					$damager->sendMessage(Main::PREFIX." §7You can't remove all customNames!");
+				} else {
+			  if(!$slapper->removeCustomName($customName))
+			  	$damager->sendMessage(Main::PREFIX." §7This customName does not exists!");
+				 else
+				  $damager->sendMessage(Main::PREFIX." §7Removed customName successfully!");
+				}
+
+
+				$action = true;
+			}
+			
+			if(isset(EmoteHumanManager::$customNames[$nick])) {
+				unset(EmoteHumanManager::$customNames[$nick]);
+				
+				$damager->sendMessage(Main::PREFIX." §7CustomName list: §6".implode("§7, §6", $slapper->getCustomNames()));
+				
 				$action = true;
 			}
 			

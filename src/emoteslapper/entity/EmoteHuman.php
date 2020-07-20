@@ -10,10 +10,12 @@ use emoteslapper\manager\EmoteManager;
 use pocketmine\Server;
 use pocketmine\Player;
 use pocketmine\command\ConsoleCommandSender;
+use pocketmine\nbt\tag\CompoundTag;
 
 class EmoteHuman extends Human implements Slapper {
 	
 	private $lastEmote = 0;
+	private $currentCustomName = 0;
 	
 	public function initEntity() : void {
 		parent::initEntity();
@@ -28,6 +30,45 @@ class EmoteHuman extends Human implements Slapper {
 	public function setCustomName(string $customName) : void {
 		$this->namedtag->setString("CustomName", $customName);
 		$this->setNameTag($customName);
+	}
+	
+	public function addCustomName(string $customName) : bool {
+		$customNames = $this->namedtag->getCompoundTag("CustomNames") ?? new CompoundTag("CustomNames", []);
+		
+		if($customNames->hasTag($customName))
+		 return false;
+		
+		$customNames->setString($customName, $customName);
+		$this->namedtag->setTag($customNames);
+		
+		return true;
+	}
+	
+	public function removeCustomName(string $customName) : bool {
+		$customNames = $this->namedtag->getCompoundTag("CustomNames") ?? new CompoundTag("CustomNames", []);
+		
+		if(!$customNames->hasTag($customName))
+		 return false;
+		
+		$customNames->removeTag($customName);
+		$this->namedtag->setTag($customNames);
+		
+		return true;
+	}
+	
+	public function getCustomNames() : array {
+		$cnames = [];
+		$customNames = $this->namedtag->getCompoundTag("CustomNames") ?? new CompoundTag("CustomNames", []);
+		
+		foreach($customNames as $stringTag)
+		 $cnames[] = $stringTag->getValue();
+		
+		return $cnames;
+	}
+	
+	public function removeCustomNames() : void {
+		foreach($this->getCustomNames() as $customName)
+		 $this->removeCustomName($customName);
 	}
 	
 	public function getEmote() : string {
@@ -101,6 +142,18 @@ class EmoteHuman extends Human implements Slapper {
 			}
 			
 			$this->lastEmote = microtime(true);
+			
+			$customNames = $this->getCustomNames();
+			
+			if(!isset($customNames[$this->currentCustomName])) {
+				if($this->currentCustomName === 0) {
+					$this->removeCustomNames();
+					$this->addCustomName("Default CustomName");
+				} else
+				 $this->currentCustomName = 0;
+			}
+			
+			$this->setCustomName($customNames[$this->currentCustomName++]);
 		}
 		
 		return parent::entityBaseTick($diff);

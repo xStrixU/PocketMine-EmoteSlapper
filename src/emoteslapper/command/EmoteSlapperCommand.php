@@ -165,6 +165,43 @@ class EmoteSlapperCommand extends Command {
 		  $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to see the command list!");
 		 break;
 		 
+		 case "addcustomname":
+		 case "addcname":
+		 if(!isset($args[1])) {
+		 	$sender->sendMessage(Main::PREFIX." §7Usage: /emoteslapper §6addcustomname §8(§6customname§8)");
+		  return;
+		 }
+		 
+		 array_shift($args);
+		 $customName = ltrim(implode(" ", $args));
+		  
+		 EmoteHumanManager::$addCustomName[$sender->getName()] = $customName;
+		  
+		 $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to add customName!");
+		 break;
+		 
+		 case "removecustomname":
+		 case "removecname":
+		 if(!isset($args[1])) {
+		 	$sender->sendMessage(Main::PREFIX." §7Usage: /emoteslapper §6removecustomname §8(§6customname§8)");
+		  return;
+		 }
+		 
+		 array_shift($args);
+		 $customName = ltrim(implode(" ", $args));
+		  
+		 EmoteHumanManager::$removeCustomName[$sender->getName()] = $customName;
+		 
+		 $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to remove customName!");
+		 break;
+		 
+		 case "customnames":
+		 case "cnames":
+		  EmoteHumanManager::$customNames[$sender->getName()] = true;
+		  
+		  $sender->sendMessage(Main::PREFIX." §7Hit the slapper you want to see the customNames list!");
+		 break;
+		 
 		 case "remove":
 		  EmoteHumanManager::$remove[$sender->getName()] = true;
 		  
