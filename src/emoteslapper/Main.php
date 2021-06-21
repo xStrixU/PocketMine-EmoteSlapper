@@ -17,11 +17,5 @@ class Main extends PluginBase {
 		CommandManager::init();
 		EntityManager::init();
 		ListenerManager::init($this);
-		
-		$this->getLogger()->info("Włączono!");
-	}
-	
-	public function onDisable() : void {
-		$this->getLogger()->info("Wyłączono!");
 	}
 }
