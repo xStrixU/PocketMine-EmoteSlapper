@@ -39,7 +39,18 @@ class EmoteManager {
          "shy_giggling" => "f1e18201-729d-472d-9e4f-5cdd7f6bba0c",
          "underwater_dancing" => "05af18ca-920f-4232-83cb-133b2d913dd6",
          "fake_death" => "efc2f0f5-af00-4d9e-a4b1-78f18d63be79",
-         "hand_stand" => "5dd129f9-cfc3-4fc1-b464-c66a03061545"
+         "hand_stand" => "5dd129f9-cfc3-4fc1-b464-c66a03061545",
+         "faceplant" => "6d9f24c0-6246-4c92-8169-4648d1981cbb",
+         "abduction" => "18891e6c-bb3d-47f6-bc15-265605d86525",
+         "giving_message" => "e1090020-cbe0-4b64-9c41-a3b9619da029",
+         "ghast_dance" => "5a5b2c0c-a924-4e13-a99b-4c12e3f02e1e",
+         "shrug" => "4ff73ed2-3c2f-4d74-9055-5fa24e59dc7a",
+         "rebooting" => "a602063f-1ded-4959-b978-b5ae7f353536",
+         "cowpoke_dancing" => "f99ccd35-ebda-4122-b458-ff8c9f9a432f",
+         "big_chuckles" => "819f2f36-2a16-440c-8e46-94c6b003a2e0",
+         "over_here" => "71721c51-b7d1-46b1-b7ea-eb4c4126c3db",
+         "jedi_mind_trick" => "4b9b9f17-3722-4d38-a6a9-9ba0e8cf5044",
+         "calling_dragon" => "9f5d4732-0513-4a0a-8ea2-b6b8d7587e74"
 	];
 	
 	public static function getEmoteId(string $emote) : ?string {
