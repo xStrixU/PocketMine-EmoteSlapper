@@ -3,7 +3,7 @@ main: emoteslapper\Main
 version: 1.0.0
 author: xStrixU
 api: 3.14.0
-mcpe-protocol: 407
+mcpe-protocol: 440
 
 permissions:
  emoteslapper.command:
